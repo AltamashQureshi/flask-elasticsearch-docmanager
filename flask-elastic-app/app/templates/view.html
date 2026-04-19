@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Document</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .navbar h1 { font-size: 24px; }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .document-view {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .document-meta {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .document-meta p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .document-meta strong {
+            color: #333;
+        }
+        .document-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📄 View Document</h1>
+        <a href="/home">Back to Home</a>
+    </div>
+
+    <div class="container">
+        <div class="document-view">
+            <h2>{{ document.filename }}</h2>
+            <div class="document-meta">
+                <p><strong>Upload Date:</strong> {{ document.upload_date[:19] if document.upload_date else 'N/A' }}</p>
+                <p><strong>File Size:</strong> {{ document.file_size }} bytes</p>
+                {% if document.last_modified %}
+                <p><strong>Last Modified:</strong> {{ document.last_modified[:19] }}</p>
+                {% endif %}
+            </div>
+            <h3>Content:</h3>
+            {% if document.is_binary %}
+                <div class="document-content" style="text-align: center; padding: 40px;">
+                    <p style="font-size: 18px; color: #666;">📦 Binary File</p>
+                    <p style="color: #999; margin-top: 10px;">This is a binary file ({{ document.mime_type }})</p>
+                    <p style="color: #999;">Cannot be previewed. Click download to save the file.</p>
+                </div>
+            {% else %}
+                <div class="document-content">{{ document.content }}</div>
+            {% endif %}
+            
+            <div class="actions">
+                <a href="/download/{{ doc_id }}" class="btn btn-success">Download File</a>
+                {% if not document.is_binary %}
+                    <a href="/edit/{{ doc_id }}" class="btn btn-warning">Edit Document</a>
+                {% endif %}
+                <a href="/home" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
