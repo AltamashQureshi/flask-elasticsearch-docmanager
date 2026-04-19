@@ -6,7 +6,37 @@
 
 ---
 
-## 🏗️ Architecture
+## 🖼 Live Demo — Proof of Deployment
+
+> Screenshots taken from a live running instance on **20-04-2026**.
+
+### 🚀 Application Startup (KillerCoda Terminal)
+
+![App Startup Terminal](screenshots/startup-terminal.png)
+
+### 🔐 Login Page
+
+![Login Page](screenshots/login-page.png)
+
+### 🏠 Dashboard — Home Page
+
+![Dashboard Home](screenshots/dashboard-home.png)
+
+### 📤 Upload & Search Interface
+
+![Upload and Search](screenshots/upload-search.png)
+
+### 🗑 Delete Operation Success
+
+![Delete Success](screenshots/delete-success.png)
+
+### 📋 Uploaded Documents Panel
+
+![Uploaded Documents Panel](screenshots/documents-panel.png)
+
+---
+
+## 🏗 Architecture
 
 ```
 Client (Browser)
@@ -40,10 +70,10 @@ All containers share Docker bridge network: flasknet
 | 🔐 Authentication | Session-based login (admin/admin) |
 | 📤 File Upload | Any file type — text or binary |
 | 🔍 Full-text Search | Multi-match across filename + content |
-| 👁️ View Document | In-browser document preview |
-| ✏️ Edit Document | Inline editing for text files |
-| ⬇️ Download | Original file download with correct MIME type |
-| 🗑️ Delete | Permanent document removal |
+| 👁 View Document | In-browser document preview |
+| ✏ Edit Document | Inline editing for text files |
+| ⬇ Download | Original file download with correct MIME type |
+| 🗑 Delete | Permanent document removal |
 | 📊 Stats API | `GET /api/stats` — document count |
 | 🧠 MIME Detection | Automatic text vs binary classification |
 
@@ -82,13 +112,20 @@ flask-elastic-app/
 ├── nginx/
 │   └── default.conf            # Nginx reverse proxy config
 ├── Dockerfile                  # Flask container build
+├── screenshots/                # Proof of deployment screenshots
+│   ├── startup-terminal.png
+│   ├── login-page.png
+│   ├── dashboard-home.png
+│   ├── upload-search.png
+│   ├── delete-success.png
+│   └── documents-panel.png
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🗄️ Elasticsearch Index Schema
+## 🗄 Elasticsearch Index Schema
 
 **Index name:** `uploads`
 
@@ -153,7 +190,7 @@ docker rmi flask-app
 
 ---
 
-## ⚙️ Configuration
+## ⚙ Configuration
 
 | Parameter | Location | Default |
 |---|---|---|
@@ -163,7 +200,7 @@ docker rmi flask-app
 | Gunicorn workers | `Dockerfile` CMD | `2` |
 | Flask secret key | `app.py` → `app.secret_key` | `supersecretkey` |
 
-> ⚠️ **Security Note:** Change `app.secret_key` and credentials before any production deployment.
+> ⚠ **Security Note:** Change `app.secret_key` and credentials before any production deployment.
 
 ---
 
